@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Busca - GasPrice</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                ⛽ <span class="logo-badge">GasPrice</span>
+            </a>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="form.html">Pesquisar</a></li>
+                <li><a href="cadastrar.html">Cadastrar Preço</a></li>
+                <li><a href="about.html">Sobre</a></li>
+                <li><a href="form.html" class="btn-nav">Buscar Agora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <h2>📍 Resultados da Pesquisa</h2>
+                    <div id="search-info" style="color: var(--text-muted);">
+                        Carregando dados do banco de dados...
+                    </div>
+                </div>
+                <div>
+                    <a href="form.html" class="btn btn-secondary">🔄 Nova Busca</a>
+                    <a href="cadastrar.html" class="btn" style="margin-left: 0.5rem;">➕ Informar Preço</a>
+                </div>
+            </div>
+            
+            <div id="results-container" class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Posto</th>
+                            <th>Bandeira</th>
+                            <th>Endereço / Bairro</th>
+                            <th>Cidade</th>
+                            <th>Preço (R$)</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Resultados serão inseridos aqui via JS do SQLite -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="no-results" style="display: none; text-align: center; padding: 3rem 1rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                <h3>Nenhum posto encontrado</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Não encontramos registros no banco de dados para os critérios selecionados.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <a href="form.html" class="btn btn-secondary">Tentar outra cidade</a>
+                    <a href="cadastrar.html" class="btn">Cadastrar esse posto</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GasPrice — Sistema de Monitoramento de Combustíveis | SQLite Backend</p>
+    </footer>
+
+    <script src="scripts/results.js"></script>
+</body>
+</html>

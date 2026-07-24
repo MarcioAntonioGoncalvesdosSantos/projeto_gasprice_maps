@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GasPrice - Economize em Cada Abastecimento</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                ⛽ <span class="logo-badge">GasPrice</span>
+            </a>
+            <ul>
+                <li><a href="index.html" class="active">Início</a></li>
+                <li><a href="form.html">Pesquisar</a></li>
+                <li><a href="cadastrar.html">Cadastrar Preço</a></li>
+                <li><a href="about.html">Sobre</a></li>
+                <li><a href="form.html" class="btn-nav">Buscar Agora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Encontre os menores preços de combustíveis na sua cidade</h1>
+            <p>O <strong>GasPrice</strong> é a sua plataforma inteligente alimentada por dados em tempo real para comparar, economizar e encontrar o melhor posto de combustível perto de você.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="form.html" class="btn">🔍 Pesquisar Preços</a>
+                <a href="cadastrar.html" class="btn btn-secondary">➕ Informar Novo Preço</a>
+            </div>
+        </section>
+
+        <!-- Estatísticas do Banco de Dados SQLite -->
+        <section style="margin-top: 3rem;">
+            <h2 style="text-align: center; margin-bottom: 0.5rem;">📊 Panorama de Preços no Banco de Dados</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">Valores atualizados pela comunidade e postos cadastrados</p>
+            
+            <div class="stats-grid" id="stats-container">
+                <div class="stat-card">
+                    <div class="label">Gasolina Comum (Menor)</div>
+                    <div class="value" id="stat-gasolina">Carregando...</div>
+                    <div class="label" id="stat-gasolina-media">Média: --</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Etanol (Menor)</div>
+                    <div class="value" id="stat-etanol">Carregando...</div>
+                    <div class="label" id="stat-etanol-media">Média: --</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Diesel (Menor)</div>
+                    <div class="value" id="stat-diesel">Carregando...</div>
+                    <div class="label" id="stat-diesel-media">Média: --</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Postos Monitorados</div>
+                    <div class="value" id="stat-total-postos">--</div>
+                    <div class="label">Cidades Atendidas</div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 3rem;">
+            <div class="card">
+                <h3>⚡ Por que usar o GasPrice?</h3>
+                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 1.5rem;">
+                    <div style="background: rgba(15, 23, 42, 0.4); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">🎯 Busca Inteligente</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Filtre postos por cidade e combustível desejado com resultados ordenados automaticamente do mais barato ao mais caro.</p>
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--gold); margin-bottom: 0.5rem;">💾 Banco de Dados Integrado</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Todas as informações são armazenadas em um banco de dados SQLite persistente e veloz.</p>
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <h4 style="color: #38bdf8; margin-bottom: 0.5rem;">🤝 Colaborativo</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Qualquer usuário pode cadastrar um novo posto ou atualizar o preço praticado na bomba.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GasPrice — Sistema de Monitoramento de Combustíveis | SQLite Backend</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

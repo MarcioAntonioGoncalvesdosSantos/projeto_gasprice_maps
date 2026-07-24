@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre - GasPrice</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                ⛽ <span class="logo-badge">GasPrice</span>
+            </a>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="form.html">Pesquisar</a></li>
+                <li><a href="cadastrar.html">Cadastrar Preço</a></li>
+                <li><a href="about.html" class="active">Sobre</a></li>
+                <li><a href="form.html" class="btn-nav">Buscar Agora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+            <h2 style="margin-bottom: 1rem;">ℹ️ Sobre o Projeto GasPrice</h2>
+            <p>O <strong>GasPrice</strong> foi desenvolvido como uma solução completa para comparação e monitoramento dos preços de combustíveis (Gasolina, Etanol, Diesel e GNV) em postos da região.</p>
+            
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+            <h3 style="color: var(--accent); margin-bottom: 0.75rem;">💻 Arquitetura e Tecnologias Utilizadas</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(15, 23, 42, 0.5); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <strong>🎨 Front-End:</strong>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">HTML5 Semântico, CSS3 Moderno (Glassmorphic Dark Theme) e JS ES6+ assíncrono (Fetch API).</p>
+                </div>
+                <div style="background: rgba(15, 23, 42, 0.5); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <strong>⚙️ Backend:</strong>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Servidor HTTP nativo em Python 3 (`http.server`) com suporte a endpoints REST API.</p>
+                </div>
+                <div style="background: rgba(15, 23, 42, 0.5); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <strong>🗄️ Banco de Dados:</strong>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">SQLite3 Relacional (`gasprice.db`) com tabelas de postos, combustíveis e preços atualizados.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--gold); margin-bottom: 0.75rem;">✨ Funcionalidades em Destaque</h3>
+            <ul style="list-style-position: inside; color: var(--text-muted); line-height: 1.8;">
+                <li><strong>Consultas dinâmicas ao Banco de Dados:</strong> Filtros por cidade e combustível em tempo real.</li>
+                <li><strong>Ordenação por Menor Preço:</strong> Destaque automático do posto com menor valor praticado.</li>
+                <li><strong>Cadastro Colaborativo:</strong> Envio de novos preços via formulário integrado à API backend.</li>
+                <li><strong>Estatísticas em Tempo Real:</strong> Cálculo de médias, menor e maior valor por combustível no banco.</li>
+                <li><strong>Integração com Google Maps:</strong> Botão de navegação direto para a localização do posto.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GasPrice — Sistema de Monitoramento de Combustíveis | SQLite Backend</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

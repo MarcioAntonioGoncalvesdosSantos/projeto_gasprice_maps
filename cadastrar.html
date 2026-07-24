@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Preço - GasPrice</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                ⛽ <span class="logo-badge">GasPrice</span>
+            </a>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="form.html">Pesquisar</a></li>
+                <li><a href="cadastrar.html" class="active">Cadastrar Preço</a></li>
+                <li><a href="about.html">Sobre</a></li>
+                <li><a href="form.html" class="btn-nav">Buscar Agora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card" style="max-width: 650px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 0.5rem;">➕ Informar Novo Preço de Combustível</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Ajude a comunidade mantendo o banco de dados SQLite do GasPrice sempre atualizado.</p>
+
+            <form id="cadastrarForm">
+                <div class="form-group">
+                    <label for="nome">Nome do Posto: *</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Auto Posto Estrela" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bandeira">Bandeira:</label>
+                    <select id="bandeira" name="bandeira">
+                        <option value="Bandeira Branca">Bandeira Branca</option>
+                        <option value="Shell">Shell</option>
+                        <option value="Petrobras">Petrobras / BR</option>
+                        <option value="Ipiranga">Ipiranga</option>
+                        <option value="ALE">ALE</option>
+                        <option value="Outra">Outra</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="cidade">Cidade: *</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Ex: Centro">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo:</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Ex: Av. Principal, 100">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="combustivel">Tipo de Combustível: *</label>
+                        <select id="combustivel" name="combustivel" required>
+                            <option value="gasolina">Gasolina Comum</option>
+                            <option value="etanol">Etanol</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="gnv">GNV</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="preco">Preço por Litro (R$): *</label>
+                        <input type="number" step="0.01" min="0.50" max="20.00" id="preco" name="preco" placeholder="Ex: 5.29" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 1.5rem;">💾 Salvar no Banco de Dados</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <footer>
+        <p>&copy; 2026 GasPrice — Sistema de Monitoramento de Combustíveis | SQLite Backend</p>
+    </footer>
+
+    <script src="scripts/cadastrar.js"></script>
+</body>
+</html>

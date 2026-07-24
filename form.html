@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Preços - GasPrice</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                ⛽ <span class="logo-badge">GasPrice</span>
+            </a>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="form.html" class="active">Pesquisar</a></li>
+                <li><a href="cadastrar.html">Cadastrar Preço</a></li>
+                <li><a href="about.html">Sobre</a></li>
+                <li><a href="form.html" class="btn-nav">Buscar Agora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 0.5rem;">🔍 Pesquisa de Preços</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Selecione a cidade e o combustível desejado para consultar os menores valores cadastrados no banco de dados.</p>
+
+            <form id="searchForm" action="formAction.html" method="GET">
+                <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" list="cidades-list" placeholder="Ex: São Paulo, Campinas..." autocomplete="off">
+                    <datalist id="cidades-list">
+                        <!-- Cidades carregadas dinamicamente via JS do SQLite -->
+                    </datalist>
+                    <span id="error-cidade" class="error-message">Por favor, informe uma cidade válida (mínimo 3 caracteres).</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="combustivel">Tipo de Combustível:</label>
+                    <select id="combustivel" name="combustivel">
+                        <option value="">Todos os combustíveis</option>
+                        <option value="gasolina">Gasolina Comum</option>
+                        <option value="etanol">Etanol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="gnv">GNV</option>
+                    </select>
+                    <span id="error-combustivel" class="error-message">Selecione um tipo de combustível válido.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="raio">Raio de Busca (km):</label>
+                    <input type="number" id="raio" name="raio" min="1" max="50" value="10" placeholder="Ex: 10">
+                    <span id="error-raio" class="error-message">Informe um raio entre 1 e 50 km.</span>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">🔎 Pesquisar Postos</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GasPrice — Sistema de Monitoramento de Combustíveis | SQLite Backend</p>
+    </footer>
+
+    <script src="scripts/validation.js"></script>
+    <script>
+        // Carregar cidades cadastradas no SQLite para o autocomplete
+        fetch('/api/cidades')
+            .then(res => res.json())
+            .then(cidades => {
+                const datalist = document.getElementById('cidades-list');
+                cidades.forEach(cidade => {
+                    const opt = document.createElement('option');
+                    opt.value = cidade;
+                    datalist.appendChild(opt);
+                });
+            })
+            .catch(err => console.error("Erro ao carregar cidades:", err));
+    </script>
+</body>
+</html>
