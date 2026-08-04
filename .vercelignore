@@ -1,0 +1,16 @@
+# Arquivos que NÃO devem subir para a Vercel
+
+# Segredos locais (a Vercel usa as env vars do painel)
+.env
+.env.*
+!.env.example
+
+# Banco SQLite local (o app usa Supabase em produção)
+*.db
+
+# Lixo do Python
+__pycache__/
+*.pyc
+
+# Testes (não precisam rodar em produção)
+tests/

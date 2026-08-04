@@ -7,6 +7,11 @@ __pycache__/
 # Banco de dados local (descomente se não quiser enviar o .db)
 # gasprice.db
 
+# Variáveis de ambiente locais (segredos)
+.env
+.env.*
+!.env.example
+
 # Ambientes Virtuais
 .venv/
 venv/

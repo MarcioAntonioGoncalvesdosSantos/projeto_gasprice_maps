@@ -61,6 +61,27 @@ class ApiHandlerTests(unittest.TestCase):
         body = json.loads(response["body"])
         self.assertIsInstance(body, list)
 
+    def test_load_dotenv_parses_env_file(self):
+        import database
+
+        env_file = os.path.join(tempfile.gettempdir(), "gasprice-dotenv-test.env")
+        with open(env_file, "w", encoding="utf-8") as f:
+            f.write(
+                "# comentário\n"
+                "GASPRICE_TESTE_UM=valor1\n"
+                'GASPRICE_TESTE_DOIS="valor 2"\n'  # aspas são removidas
+            )
+        try:
+            os.environ.pop("GASPRICE_TESTE_UM", None)
+            os.environ.pop("GASPRICE_TESTE_DOIS", None)
+            database._load_dotenv(env_file)
+            self.assertEqual(os.environ.get("GASPRICE_TESTE_UM"), "valor1")
+            self.assertEqual(os.environ.get("GASPRICE_TESTE_DOIS"), "valor 2")
+        finally:
+            os.environ.pop("GASPRICE_TESTE_UM", None)
+            os.environ.pop("GASPRICE_TESTE_DOIS", None)
+            os.unlink(env_file)
+
 
 if __name__ == "__main__":
     unittest.main()

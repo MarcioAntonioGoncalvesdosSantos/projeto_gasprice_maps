@@ -24,10 +24,5 @@ def _normalize_event(request):
 
 def handler(request, response=None):
     database.init_db()
-    event = _normalize_event(request)
-    conn = database.get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT cidade FROM postos ORDER BY cidade ASC")
-    cidades = [r["cidade"] for r in cursor.fetchall()]
-    conn.close()
+    cidades = database.listar_cidades()
     return {"statusCode": 200, "body": json.dumps(cidades)}

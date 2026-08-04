@@ -25,12 +25,7 @@ class GasPriceHandler(http.server.SimpleHTTPRequestHandler):
             self._send_json(stats)
 
         elif path == "/api/cidades":
-            conn = database.get_connection()
-            cursor = conn.cursor()
-            cursor.execute("SELECT DISTINCT cidade FROM postos ORDER BY cidade ASC")
-            cidades = [r["cidade"] for r in cursor.fetchall()]
-            conn.close()
-            self._send_json(cidades)
+            self._send_json(database.listar_cidades())
 
         else:
             # Servir arquivos estáticos (html, css, js)

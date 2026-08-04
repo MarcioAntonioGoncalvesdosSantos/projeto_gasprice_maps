@@ -36,3 +36,18 @@ values
   (7, 'etanol', 3.75),
   (7, 'diesel', 5.90),
   (7, 'gnv', 4.59);
+
+-- ============================================================
+-- Ajusta as sequences de identidade.
+-- Como os ids foram inseridos explicitamente acima, o Postgres
+-- não avança as sequences sozinho. Sem isso, o próximo INSERT
+-- via app tentaria id=1 e daria erro de chave duplicada.
+-- ============================================================
+select setval(
+    pg_get_serial_sequence('public.postos', 'id'),
+    (select coalesce(max(id), 1) from public.postos)
+);
+select setval(
+    pg_get_serial_sequence('public.precos', 'id'),
+    (select coalesce(max(id), 1) from public.precos)
+);

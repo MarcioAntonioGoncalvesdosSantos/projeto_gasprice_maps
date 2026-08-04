@@ -7,6 +7,29 @@ from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _load_dotenv(path=None):
+    """Carrega variáveis de ambiente de um arquivo .env (sem sobrescrever as já definidas)."""
+    dotenv_path = path or os.path.join(BASE_DIR, ".env")
+    if not os.path.exists(dotenv_path):
+        return
+    with open(dotenv_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key = key.strip()
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                value = value[1:-1]
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+_load_dotenv()
+
 DEFAULT_DB_PATH = os.environ.get("GASPRICE_DB_PATH")
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_ANON_KEY")
@@ -44,10 +67,14 @@ def _supabase_request(method, path, payload=None, params=None):
         url = f"{url}?{urllib.parse.urlencode(params, doseq=True)}"
 
     data = None
+    headers = _supabase_headers()
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
+        # Retorna o registro criado (com o id gerado) ao inserir no PostgREST
+        if method == "POST":
+            headers["Prefer"] = "return=representation"
 
-    request = urllib.request.Request(url, data=data, headers=_supabase_headers(), method=method)
+    request = urllib.request.Request(url, data=data, headers=headers, method=method)
 
     try:
         with urllib.request.urlopen(request) as response:
@@ -153,25 +180,21 @@ def seed_data(cursor):
 
 def buscar_postos(cidade=None, combustivel=None):
     if USE_SUPABASE:
-        params = {"select": "id,posto_id,tipo_combustivel,preco,data_atualizacao"}
+        # Embedding do PostgREST: traz o posto junto de cada preço em UMA
+        # requisição (evita N+1 chamadas ao Supabase).
+        params = {
+            "select": "id,tipo_combustivel,preco,data_atualizacao,postos(id,nome,bandeira,cidade,endereco,bairro)"
+        }
         if combustivel:
             params["tipo_combustivel"] = f"eq.{combustivel.strip()}"
+        if cidade:
+            params["postos.cidade"] = f"ilike.*{cidade.strip()}*"
 
         precos = _supabase_request("GET", "precos", params=params)
         result = []
         for item in precos:
-            posto_rows = _supabase_request(
-                "GET",
-                "postos",
-                params={
-                    "select": "id,nome,bandeira,cidade,endereco,bairro",
-                    "id": f"eq.{item['posto_id']}",
-                },
-            )
-            if not posto_rows:
-                continue
-            posto = posto_rows[0]
-            if cidade and cidade.strip().lower() not in str(posto.get("cidade", "")).lower():
+            posto = item.get("postos") or {}
+            if not posto:
                 continue
             result.append({
                 "id": item["id"],
@@ -279,6 +302,19 @@ def obter_estatisticas():
             "qtd": r["qtd"]
         }
     return stats
+
+
+def listar_cidades():
+    if USE_SUPABASE:
+        postos = _supabase_request("GET", "postos", params={"select": "cidade"})
+        return sorted({p.get("cidade") for p in postos if p.get("cidade")})
+
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT DISTINCT cidade FROM postos ORDER BY cidade ASC")
+    cidades = [r["cidade"] for r in cursor.fetchall()]
+    conn.close()
+    return cidades
 
 
 def cadastrar_ou_atualizar_posto(nome, bandeira, cidade, endereco, bairro, combustivel, preco):
